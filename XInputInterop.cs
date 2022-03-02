@@ -2,6 +2,9 @@
 
 namespace GamepadCmd
 {
+    /// <summary>
+    /// Manage interop with xinput c++ library
+    /// </summary>
     internal static class XInputInterop
     {
         private const string XINPUT1_4_DLL = "xinput1_4.dll";

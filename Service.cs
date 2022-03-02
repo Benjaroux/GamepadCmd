@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 
@@ -8,13 +10,24 @@ namespace GamepadCmd
     {
         private Macro[] macros;
 
+        /// <summary>
+        /// Constructor, initialize service with 
+        /// </summary>
+        /// <param name="filePath">Parameters file full path</param>
         public Service(string filePath)
         {
-            // TODO use filepath parameter and deserialize it
+            List<Macro> lstMacros = new List<Macro>();
 
-            macros = new Macro[] {
-                new Macro("Start,Back", 3000, "taskkill /F /IM Cemu.exe")
-            };
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+                while (!sr.EndOfStream)
+                {
+                    string[] line = sr.ReadLine().Split(';');
+                    lstMacros.Add(new Macro(line[0], int.Parse(line[1]), line[2]));
+                }
+            }
+
+            macros = lstMacros.ToArray();
         }
 
         public void Run()
