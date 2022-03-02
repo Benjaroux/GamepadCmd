@@ -32,8 +32,12 @@ namespace GamepadCmd
         {
             try
             {
-                Service service = new Service(args[0]);
+                string filePath = args[0];
+                Service service = new Service(filePath);
 
+                Console.WriteLine("Using file : " + filePath);
+                Console.WriteLine(service.ToString());
+                Console.WriteLine("Run service...");
                 service.Run();
             }
             catch (Exception e)

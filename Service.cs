@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 
 namespace GamepadCmd
@@ -88,6 +89,18 @@ namespace GamepadCmd
                     }
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (Macro macro in macros)
+            {
+                sb.AppendLine(macro.ToString());
+            }
+
+            return sb.ToString();
         }
     }
 }
