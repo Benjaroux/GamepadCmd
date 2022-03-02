@@ -21,7 +21,7 @@ With :
 ## Examples
 Press "A" for 1000 ms will execute the command "calc.exe"
 ```
-A;1000;notepad.exe
+A;1000;calc.exe
 ```
 Press "Start" + "Back" for 3000 ms will execute the command "taskkill /F /IM win32calc.exe"
 ```
