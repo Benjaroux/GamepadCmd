@@ -7,38 +7,46 @@ using System.Threading;
 
 namespace GamepadCmd
 {
+    /// <summary>
+    /// Manage gamepad buttons detection and test if the buttons 
+    /// pressed by the user match with one of a parameter defined in the parameters file
+    /// </summary>
     internal class Service
     {
-        private Macro[] macros;
+        private Parameter[] macros;
 
         /// <summary>
-        /// Constructor, initialize service with 
+        /// Constructor, initialize service with parameters 
         /// </summary>
-        /// <param name="filePath">Parameters file full path</param>
+        /// <param name="filePath">Parameters file path</param>
         public Service(string filePath)
         {
-            List<Macro> lstMacros = new List<Macro>();
+            List<Parameter> lstMacros = new List<Parameter>();
 
             using (StreamReader sr = new StreamReader(filePath))
             {
                 while (!sr.EndOfStream)
                 {
                     string[] line = sr.ReadLine().Split(';');
-                    lstMacros.Add(new Macro(line[0], int.Parse(line[1]), line[2]));
+                    lstMacros.Add(new Parameter(line[0], int.Parse(line[1]), line[2]));
                 }
             }
 
             macros = lstMacros.ToArray();
         }
 
+        /// <summary>
+        /// Run gamepad buttons detection and detect if one of the pattern defined in parameters is matching
+        /// In case of matching, run the corresponding command and continue the detection
+        /// </summary>
         public void Run()
         {
             const int SLEEP_MS = 100;
 
             Gamepad gamepad = new Gamepad();
             bool wasConnected = true;
-            Macro.ButtonFlags pressedButton = 0;
-            Macro.ButtonFlags pressedButtonPrev = 0;
+            Parameter.ButtonFlags pressedButton = 0;
+            Parameter.ButtonFlags pressedButtonPrev = 0;
             int pressedButtonDuration = 0;
 
             while (true)
@@ -67,7 +75,7 @@ namespace GamepadCmd
                     // New button or new button combinaison pressed
                     if (pressedButton != pressedButtonPrev)
                     {
-                        if (pressedButton != Macro.ButtonFlags.None)
+                        if (pressedButton != Parameter.ButtonFlags.None)
                         {
                             Console.WriteLine("Button pressed : " + pressedButton);
                         }
@@ -81,7 +89,7 @@ namespace GamepadCmd
                         pressedButtonDuration += SLEEP_MS;
 
                         // Check for matching macros
-                        foreach (Macro macro in macros.Where(x => x.IsMatched(pressedButton, pressedButtonDuration)))
+                        foreach (Parameter macro in macros.Where(x => x.IsMatched(pressedButton, pressedButtonDuration)))
                         {
                             Console.WriteLine(macro.ToString());
                             macro.DoCommand();
@@ -95,7 +103,7 @@ namespace GamepadCmd
         {
             StringBuilder sb = new StringBuilder();
 
-            foreach (Macro macro in macros)
+            foreach (Parameter macro in macros)
             {
                 sb.AppendLine(macro.ToString());
             }

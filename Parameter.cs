@@ -3,25 +3,44 @@ using System.Diagnostics;
 
 namespace GamepadCmd
 {
-    internal class Macro
+    /// <summary>
+    /// Class that represents a parameter with a pattern to match 
+    /// and the corresponding command to execute in case of matching
+    /// </summary>
+    internal class Parameter
     {
 		public ButtonFlags pattern;
 		public int patternDuration;
 		public string command;
 
-        public Macro(string _patternStr, int _patternDuration, string _command)
+        /// <summary>
+        /// Class constructor
+        /// </summary>
+        /// <param name="_patternStr">Pattern</param>
+        /// <param name="_patternDuration">Parrern duration is milliseconds</param>
+        /// <param name="_command">Command to execute is case of pattern matching</param>
+        public Parameter(string _patternStr, int _patternDuration, string _command)
         {
             pattern = (ButtonFlags)Enum.Parse(typeof(ButtonFlags), _patternStr);
             patternDuration = _patternDuration;
             command = _command;
         }
 
+        /// <summary>
+        /// Test if the currently pressed button(s) match with
+        /// </summary>
+        /// <param name="button">The pressed buttons</param>
+        /// <param name="duration">Durtion of pressed buttons</param>
+        /// <returns>true if </returns>
         public bool IsMatched(ButtonFlags button, int duration)
         {
             return button == pattern && 
                    duration == patternDuration;
         }
 
+        /// <summary>
+        /// Execute the defined command
+        /// </summary>
         public void DoCommand()
         {
             var proc = new Process
@@ -41,6 +60,9 @@ namespace GamepadCmd
 
         public override string ToString() => string.Format("[{0} | {1} ms] Execute command : {2}", pattern, patternDuration, command);
 
+        /// <summary>
+        /// Mapping button name and xinput value
+        /// </summary>
         [Flags]
         public enum ButtonFlags : ushort
         {

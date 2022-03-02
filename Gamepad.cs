@@ -1,20 +1,26 @@
 ﻿namespace GamepadCmd
 {
+    /// <summary>
+    /// Manage gamepad actions
+    /// </summary>
     internal class Gamepad
     {
         private int cId;
         private XInputInterop.XINPUT_STATE state;
 
+        /// <summary>
+        /// Get port number for the currently connected gamepad
+        /// </summary>
+        /// <returns>Port number</returns>
         public int GetPort()
         {
             return cId + 1;
         }
 
-        public XInputInterop.XINPUT_GAMEPAD GetState()
-        {
-            return state.Gamepad;
-        }
-
+        /// <summary>
+        /// Check if a gamepad is connected
+        /// </summary>
+        /// <returns>true if connected else, return false</returns>
         public bool CheckConnection()
         {
             int controllerId = -1;
@@ -64,18 +70,18 @@
         /// </summary>
         /// <param name="button">ID of pressed button(s)</param>
         /// <returns>true if match, else return false</returns>
-        public bool IsPressed(Macro.ButtonFlags button)
+        public bool IsPressed(Parameter.ButtonFlags button)
         {
-            return ((Macro.ButtonFlags)state.Gamepad.wButtons & button) != 0;
+            return ((Parameter.ButtonFlags)state.Gamepad.wButtons & button) != 0;
         }
 
         /// <summary>
         /// Get which button or combinaison of buttons are currently pressed
         /// </summary>
         /// <returns>ID of pressed button(s)</returns>
-        public Macro.ButtonFlags GetPressedButton()
+        public Parameter.ButtonFlags GetPressedButton()
         {
-            return (Macro.ButtonFlags)state.Gamepad.wButtons;
+            return (Parameter.ButtonFlags)state.Gamepad.wButtons;
         }
     }
 }

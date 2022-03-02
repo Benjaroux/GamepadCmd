@@ -27,3 +27,22 @@ Press "Start" + "Back" for 3000 ms will execute the command "taskkill /F /IM cal
 ```
 Start,Back;3000;taskkill /F /IM calc.exe
 ```
+
+## Supported buttons
+Only tested with xbox360 controller
+```
+Up
+Down
+Left
+Right
+Start
+Back
+LS
+RS
+LB
+RB
+A
+B
+X
+Y
+```
