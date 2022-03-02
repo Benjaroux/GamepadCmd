@@ -1,0 +1,2 @@
+A;1000;calc.exe
+Start,Back;3000;taskkill /F /IM calc.exe
