@@ -23,9 +23,9 @@ Press "A" for 1000 ms will execute the command "calc.exe"
 ```
 A;1000;notepad.exe
 ```
-Press "Start" + "Back" for 3000 ms will execute the command "taskkill /F /IM calc.exe"
+Press "Start" + "Back" for 3000 ms will execute the command "taskkill /F /IM win32calc.exe"
 ```
-Start,Back;3000;taskkill /F /IM calc.exe
+Start,Back;3000;taskkill /F /IM win32calc.exe
 ```
 
 ## Supported buttons
