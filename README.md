@@ -1,5 +1,7 @@
 # GamepadCmd
 
+***GamepadCmd has been replaced by [GamepadCmdMapper]https://github.com/Benjaroux/GamepadCmdMapper***
+
 ## Usage
 ```
 GamepadCmd.exe "[parameter file path (.txt)]"
