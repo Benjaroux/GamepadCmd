@@ -1,6 +1,6 @@
 # GamepadCmd
 
-***GamepadCmd has been replaced by [GamepadCmdMapper]https://github.com/Benjaroux/GamepadCmdMapper***
+***GamepadCmd has been replaced by [GamepadCmdMapper](https://github.com/Benjaroux/GamepadCmdMapper)***
 
 ## Usage
 ```
